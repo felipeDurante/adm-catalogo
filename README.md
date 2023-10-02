@@ -1,2 +1,2 @@
 # adm-catalogo
-Catalogo de filmes em construção
+Catalogo de filmes utlizando TDD e Arquitetura limpa em construção
