@@ -28,7 +28,40 @@ public class CreateCategoryUseCaseTest {
 
         final var aCommand = CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsAtive);
 
-        CategoryGateway categoryGateway = Mockito.mock(CategoryGateway.class);
+        CategoryGateway categoryGateway =
+                Mockito.mock(CategoryGateway.class);
+        when(categoryGateway.create(Mockito.any())).thenAnswer(returnsFirstArg());
+
+        final var useCase = new DefaultCreateCategoryUseCase(categoryGateway);
+
+        final var actualOutPut = useCase.execute(aCommand);
+
+        Assertions.assertNotNull(actualOutPut);
+        Assertions.assertNotNull(actualOutPut.id());
+
+        verify(categoryGateway, Mockito.times(1)).create(Mockito.argThat(aCategory ->
+                Objects.equals(expectedName, aCategory.getName())
+                        && Objects.equals(expectedIsAtive, aCategory.isActive())
+                        && Objects.equals(expectedDescription, aCategory.getDescription())
+                        && Objects.nonNull(aCategory.getId())
+                        && Objects.nonNull(aCategory.getCreatedAt())
+                        && Objects.nonNull(aCategory.getUpdatedAt())
+                        && Objects.isNull(aCategory.getDeletedAt())
+        ));
+
+    }
+
+    @Test
+    public void givenAValidCommand_whenCallsCreateCategory_shouldReturnCategoryId() {
+
+        final var expectedName = "Filmes";
+        final var expectedDescription = "A categoria mais assistida";
+        final var expectedIsAtive = true;
+
+        final var aCommand = CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsAtive);
+
+        CategoryGateway categoryGateway =
+                Mockito.mock(CategoryGateway.class);
         when(categoryGateway.create(Mockito.any())).thenAnswer(returnsFirstArg());
 
         final var useCase = new DefaultCreateCategoryUseCase(categoryGateway);
