@@ -1,7 +1,6 @@
 package com.felipe.admin.catalogo.application.category.create;
 
 import com.felipe.admin.catalogo.domain.category.CategoryGateway;
-import com.felipe.admin.catalogo.domain.exceptions.DomainException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,7 +39,7 @@ public class CreateCategoryUseCaseTest {
 
         when(categoryGateway.create(Mockito.any())).thenAnswer(returnsFirstArg());
 
-        final var actualOutPut = useCase.execute(aCommand);
+        final var actualOutPut = useCase.execute(aCommand).get();
 
         Assertions.assertNotNull(actualOutPut);
         Assertions.assertNotNull(actualOutPut.id());
@@ -64,13 +63,18 @@ public class CreateCategoryUseCaseTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsAtive = true;
         final var expedtedMessageError = "'name' should not be null";
+        final var errorCount = 1;
 
         final var aCommand = CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsAtive);
 
-        final var actualException = Assertions.assertThrows(DomainException.class, () -> useCase.execute(aCommand));
+         final var notification = useCase.execute(aCommand).getLeft();
+
+//        final var actualException = Assertions.assertThrows(DomainException.class, () -> useCase.execute(aCommand));
 
 
-        Assertions.assertEquals(expedtedMessageError, actualException.getMessage());
+        Assertions.assertEquals(errorCount, notification.getErros().size());
+        Assertions.assertEquals(expedtedMessageError, notification.firstError().message());
+
         Mockito.verify(categoryGateway, times(0)).create(any());
 
     }
@@ -86,7 +90,7 @@ public class CreateCategoryUseCaseTest {
 
         when(categoryGateway.create(Mockito.any())).thenAnswer(returnsFirstArg());
 
-        final var actualOutPut = useCase.execute(aCommand);
+        final var actualOutPut = useCase.execute(aCommand).get();
 
         Assertions.assertNotNull(actualOutPut);
         Assertions.assertNotNull(actualOutPut.id());
@@ -110,14 +114,21 @@ public class CreateCategoryUseCaseTest {
         final var expectedDescription = "A categoria mais assistida";
         final var expectedIsAtive = true;
         final var expectedMessageError = "Gateway error";
+        short errorCount = 1;
+
         final var aCommand = CreateCategoryCommand.with(expectedName, expectedDescription, expectedIsAtive);
 
         when(categoryGateway.create(Mockito.any()))
                 .thenThrow(new IllegalStateException("Gateway error"));
 
-        final var actualException = Assertions.assertThrows(IllegalStateException.class, () -> useCase.execute(aCommand));
+//        final var actualException = Assertions.assertThrows(IllegalStateException.class, () -> useCase.execute(aCommand));
 
-        Assertions.assertEquals(expectedMessageError, actualException.getMessage());
+        final var notification = useCase.execute(aCommand).getLeft();
+
+//        Assertions.assertEquals(expectedMessageError, actualException.getMessage());
+
+        Assertions.assertEquals(errorCount, notification.getErros().size());
+        Assertions.assertEquals(expectedMessageError, notification.firstError().message());
 
         verify(categoryGateway, Mockito.times(1)).create(Mockito.argThat(aCategory ->
                 Objects.equals(expectedName, aCategory.getName())
