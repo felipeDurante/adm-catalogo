@@ -157,16 +157,21 @@ public class CategoryTest {
         Assertions.assertDoesNotThrow(() -> aCategory.validate(new ThrowsValidationHandler()));
 
         final var updatedAt = aCategory.getUpdatedAt();
+        System.out.println(" 1 - UpdatedAt: %s".formatted(updatedAt));
 
         Assertions.assertTrue(aCategory.isActive());
         Assertions.assertNull(aCategory.getDeletedAt());
 
-        try {
-            Thread.sleep(150);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
+
+//        try {
+//            Thread.sleep(150);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         final var actualCategory = aCategory.deactivate();
+
+        System.out.println("1 - UpdatedAt Novo: %s".formatted(actualCategory.getUpdatedAt()));
 
         Assertions.assertDoesNotThrow(() -> actualCategory.validate(new ThrowsValidationHandler()));
 
@@ -197,11 +202,13 @@ public class CategoryTest {
         Assertions.assertFalse(aCategory.isActive());
         Assertions.assertNotNull(aCategory.getDeletedAt());
         try {
-            Thread.sleep(150);
+            Thread.sleep(10);
+
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         final var actualCategory = aCategory.activate();
+
 
         Assertions.assertDoesNotThrow(() -> actualCategory.validate(new ThrowsValidationHandler()));
 
