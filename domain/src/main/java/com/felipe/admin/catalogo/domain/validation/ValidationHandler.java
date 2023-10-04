@@ -11,6 +11,8 @@ public interface ValidationHandler {
     public List<Error> getErros();
 
 
+
+
     interface Validation {
         void validate();
     }
