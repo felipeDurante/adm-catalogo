@@ -1,0 +1,13 @@
+mysql:
+    username: root
+    password: 123456
+    schema: adm_videos
+    url: localhost:3306
+server:
+  port: 8081
+  undertow:
+    threads:
+#      Threads que consomem e processam as requisicoes (cada thread tem em media entre 2 e 3 mbs)
+      worker: 10
+#      Io Thredds que escutam as novas conexoes e jogam elas para serem processadas nas filas
+      io: 2
