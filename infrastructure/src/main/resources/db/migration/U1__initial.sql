@@ -1,0 +1,1 @@
+DROP TABLE adm_videos.category;
