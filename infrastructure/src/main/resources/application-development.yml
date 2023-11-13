@@ -4,7 +4,7 @@ mysql:
     schema: adm_videos
     url: localhost:3306
 server:
-  port: 8081
+  port: 8080
   undertow:
     threads:
 #      Threads que consomem e processam as requisicoes (cada thread tem em media entre 2 e 3 mbs)

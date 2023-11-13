@@ -10,6 +10,8 @@ server:
       worker: 64
 #      Io Thredds que escutam as novas conexoes e jogam elas para serem processadas nas filas
       io: 4
+  servlet:
+    context-path: /api
 spring:
   datasource:
     url: jdbc:mysql://${mysql.url}/${mysql.schema}?useSSL=true&serverTimezone=UTC&characterEncoding=UTF-8
