@@ -5,24 +5,24 @@ import java.util.List;
 public interface ValidationHandler {
 
     ValidationHandler append(Error anError);
-    ValidationHandler append(ValidationHandler anError);
-    ValidationHandler validate(Validation anError);
 
-    public List<Error> getErros();
+    ValidationHandler append(ValidationHandler anHandler);
+//    ValidationHandler validate(Validation anError);
 
+    <T> T validate(Validation<T> aValidation);
 
+    List<Error> getErros();
 
-
-    interface Validation {
-        void validate();
+    default boolean hasError() {
+        return getErros() != null && !getErros().isEmpty();
     }
 
     default Error firstError() {
         return (getErros() != null && !getErros().isEmpty()) ? getErros().get(0) : null;
     }
 
-    default boolean hasError() {
-         return getErros()!=null &&  !getErros().isEmpty();
+    interface Validation<T> {
+        T validate();
     }
 
 
