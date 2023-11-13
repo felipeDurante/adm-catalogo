@@ -34,22 +34,33 @@ public class NotificationPattern implements ValidationHandler {
     }
 
     @Override
-    public NotificationPattern append(ValidationHandler anError) {
+    public NotificationPattern append(final ValidationHandler anError) {
         this.errors.addAll(anError.getErros());
         return this;
     }
 
     @Override
-    public NotificationPattern validate(final Validation aValidation) {
+    public <T> T validate(final Validation<T> aValidation) {
         try {
-            aValidation.validate();
+            return aValidation.validate();
         } catch (final DomainException ex) {
             this.errors.addAll(ex.getErros());
         } catch (final Throwable t) {
             this.errors.add(new Error(t.getMessage()));
         }
-        return this;
+        return null;
     }
+//    @Override
+//    public <T> validate(final Validation<T> aValidation) {
+//        try {
+//            aValidation.validate();
+//        } catch (final DomainException ex) {
+//            this.errors.addAll(ex.getErros());
+//        } catch (final Throwable t) {
+//            this.errors.add(new Error(t.getMessage()));
+//        }
+//        return null;
+//    }
 
     @Override
     public List<Error> getErros() {
