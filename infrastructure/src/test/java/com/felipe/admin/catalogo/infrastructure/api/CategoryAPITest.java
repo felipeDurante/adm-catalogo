@@ -19,7 +19,7 @@ import com.felipe.admin.catalogo.domain.exceptions.NotFoundException;
 import com.felipe.admin.catalogo.domain.exceptions.NotificationPattern;
 import com.felipe.admin.catalogo.domain.pagination.Pagination;
 import com.felipe.admin.catalogo.domain.validation.Error;
-import com.felipe.admin.catalogo.infrastructure.ControllerTest;
+import com.felipe.admin.catalogo.ControllerTest;
 import com.felipe.admin.catalogo.infrastructure.category.models.CreateCategoryRequest;
 import com.felipe.admin.catalogo.infrastructure.category.models.UpdateCategoryRequest;
 import io.vavr.API;

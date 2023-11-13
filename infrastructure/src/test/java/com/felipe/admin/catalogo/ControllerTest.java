@@ -1,4 +1,4 @@
-package com.felipe.admin.catalogo.infrastructure;
+package com.felipe.admin.catalogo;
 
 import com.felipe.admin.catalogo.infrastructure.configuration.ObjectMapperConfig;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-@ActiveProfiles("test")
+@ActiveProfiles("test-integration")
 @WebMvcTest //test de controladores, deserializacao e serializacao e etc
 @Import(ObjectMapperConfig.class)
 public @interface ControllerTest {
