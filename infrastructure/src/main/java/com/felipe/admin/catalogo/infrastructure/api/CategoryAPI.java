@@ -1,16 +1,17 @@
 package com.felipe.admin.catalogo.infrastructure.api;
 
 import com.felipe.admin.catalogo.domain.pagination.Pagination;
+import com.felipe.admin.catalogo.infrastructure.category.models.CategoryApiResponse;
+import com.felipe.admin.catalogo.infrastructure.category.models.CreateCategoryRequest;
+import com.felipe.admin.catalogo.infrastructure.category.models.UpdateCategoryRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "categories")
 @Tag(name = "Categories")
@@ -25,7 +26,40 @@ public interface CategoryAPI {
             @ApiResponse(responseCode = "422", description = "Processable error"),
             @ApiResponse(responseCode = "500", description = "Internal sever error was throw")
     })
-    ResponseEntity<?> createCategory();
+    ResponseEntity<?> createCategory(@RequestBody CreateCategoryRequest createCategoryInput);
+
+    @GetMapping(value = "{id}",
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @Operation(summary = "Get a category by identifier")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Category retrieved sucessfully"),
+            @ApiResponse(responseCode = "404", description = "Category not found"),
+            @ApiResponse(responseCode = "500", description = "Internal sever error was throw")
+    })
+    CategoryApiResponse getCategory(@PathVariable(name = "id") String id);
+
+
+    @PutMapping(
+            value = "{id}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = {MediaType.APPLICATION_JSON_VALUE})
+    @Operation(summary = "Update a category")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Updated sucessfully"),
+            @ApiResponse(responseCode = "422", description = "Processable error"),
+            @ApiResponse(responseCode = "500", description = "Internal sever error was throw")
+    })
+    ResponseEntity<?> updateCategoryById(@PathVariable(name = "id") String id, @RequestBody UpdateCategoryRequest updateCategoryApiInput);
+
+    @DeleteMapping(value = "{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Operation(summary = "Delete a category by it's identifier")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Category deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Category was not found"),
+            @ApiResponse(responseCode = "500", description = "An internal server error was thrown"),
+    })
+    void deleteById(@PathVariable(name = "id") String id);
 
     @GetMapping
     @Operation(summary = "List all categories paginated")
