@@ -31,6 +31,7 @@ public class DefaultCreateCategoryUseCase extends CreateCategoryUseCase {
     }
 
     private Either<NotificationPattern, CreateCategoryOutPut> create(final Category aCategory) {
+
 //        API.Try(() -> this.categoryGateway.create(aCategory))
 //                .toEither()
 //                .map(CreateCategoryOutPut::from)

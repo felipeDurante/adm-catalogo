@@ -2,6 +2,7 @@ package com.felipe.admin.catalogo.application.category.create;
 
 import com.felipe.admin.catalogo.domain.category.CategoryGateway;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,6 +20,11 @@ public class CreateCategoryUseCaseTest {
 
     @InjectMocks
     private DefaultCreateCategoryUseCase useCase;
+
+    @BeforeEach
+    void cleanUp() { // limpa o contexto dos mocks, garantindo que um teste nao interfira em outro
+        Mockito.reset(categoryGateway);
+    }
 
     @Mock
     private CategoryGateway categoryGateway;

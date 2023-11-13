@@ -15,10 +15,9 @@ public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase {
 
     private final CategoryGateway categoryGateway;
 
-    public DefaultUpdateCategoryUseCase(CategoryGateway categoryGateway) {
+    public DefaultUpdateCategoryUseCase(final CategoryGateway categoryGateway) {
         this.categoryGateway = Objects.requireNonNull(categoryGateway);
     }
-
 
     @Override
     public Either<NotificationPattern, UpdateCategoryOutPut> execute(UpdateCategoryCommand aCommand) {
