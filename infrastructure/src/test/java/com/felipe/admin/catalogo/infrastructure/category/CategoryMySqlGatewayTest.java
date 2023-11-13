@@ -1,5 +1,6 @@
 package com.felipe.admin.catalogo.infrastructure.category;
 
+import com.felipe.admin.catalogo.MySqlGatewayTest;
 import com.felipe.admin.catalogo.domain.category.Category;
 import com.felipe.admin.catalogo.domain.category.CategoryID;
 import com.felipe.admin.catalogo.infrastructure.category.persistence.CategoryEntity;
@@ -8,7 +9,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.*;
 
 
 @MySqlGatewayTest
