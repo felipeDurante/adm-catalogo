@@ -1,7 +1,7 @@
 package com.felipe.admin.catalogo.infrastructure.category.persistence;
 
 import com.felipe.admin.catalogo.domain.category.Category;
-import com.felipe.admin.catalogo.infrastructure.category.MySqlGatewayTest;
+import com.felipe.admin.catalogo.MySqlGatewayTest;
 import org.hibernate.PropertyValueException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

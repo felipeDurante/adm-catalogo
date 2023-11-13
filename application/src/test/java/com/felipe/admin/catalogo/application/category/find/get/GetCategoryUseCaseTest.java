@@ -5,6 +5,7 @@ import com.felipe.admin.catalogo.domain.category.Category;
 import com.felipe.admin.catalogo.domain.category.CategoryGateway;
 import com.felipe.admin.catalogo.domain.category.CategoryID;
 import com.felipe.admin.catalogo.domain.exceptions.DomainException;
+import com.felipe.admin.catalogo.domain.exceptions.NotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -72,7 +73,7 @@ public class GetCategoryUseCaseTest extends UseCaseTest {
                 .thenReturn(Optional.empty());
 
         final var actualException = Assertions.assertThrows(
-                DomainException.class,
+                NotFoundException.class,
                 () -> useCase.execute(expectedId.getValue())
         );
 
