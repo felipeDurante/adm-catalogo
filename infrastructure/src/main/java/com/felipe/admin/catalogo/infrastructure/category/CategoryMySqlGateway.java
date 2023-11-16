@@ -3,7 +3,6 @@ package com.felipe.admin.catalogo.infrastructure.category;
 import com.felipe.admin.catalogo.domain.category.Category;
 import com.felipe.admin.catalogo.domain.category.CategoryGateway;
 import com.felipe.admin.catalogo.domain.category.CategoryID;
-import com.felipe.admin.catalogo.domain.category.CategorySearchQuery;
 import com.felipe.admin.catalogo.domain.pagination.Pagination;
 import com.felipe.admin.catalogo.domain.pagination.SearchQuery;
 import com.felipe.admin.catalogo.infrastructure.category.persistence.CategoryEntity;
@@ -78,11 +77,6 @@ public class CategoryMySqlGateway implements CategoryGateway {
         );
 
     }
-
-//    @Override
-//    public Pagination<Category> findAll(SearchQuery aQuery) {
-//        return null;
-//    }
 
     @Override
     public List<CategoryID> existsByIds(final Iterable<CategoryID> categoryIDs) {

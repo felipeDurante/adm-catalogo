@@ -1,40 +1,41 @@
-package com.felipe.admin.catalogo.domain.exceptions;
+package com.felipe.admin.catalogo.domain.validation.handler;
 
+import com.felipe.admin.catalogo.domain.exceptions.DomainException;
 import com.felipe.admin.catalogo.domain.validation.Error;
 import com.felipe.admin.catalogo.domain.validation.ValidationHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NotificationPattern implements ValidationHandler {
+public class Notification implements ValidationHandler {
 
 
     private final List<Error> errors;
 
-    private NotificationPattern(final List<Error> errors) {
+    private Notification(final List<Error> errors) {
         this.errors = errors;
     }
 
-    public static NotificationPattern create() {
-        return new NotificationPattern(new ArrayList<>());
+    public static Notification create() {
+        return new Notification(new ArrayList<>());
     }
 
-    public static NotificationPattern create(final Throwable throwable) {
+    public static Notification create(final Throwable throwable) {
         return create(new Error(throwable.getMessage()));
     }
 
-    public static NotificationPattern create(final Error anError) {
-        return new NotificationPattern(new ArrayList<>()).append(anError);
+    public static Notification create(final Error anError) {
+        return new Notification(new ArrayList<>()).append(anError);
     }
 
     @Override
-    public NotificationPattern append(final Error anError) {
+    public Notification append(final Error anError) {
         this.errors.add(anError);
         return this;
     }
 
     @Override
-    public NotificationPattern append(final ValidationHandler anError) {
+    public Notification append(final ValidationHandler anError) {
         this.errors.addAll(anError.getErros());
         return this;
     }

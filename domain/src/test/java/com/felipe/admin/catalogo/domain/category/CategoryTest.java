@@ -157,7 +157,6 @@ public class CategoryTest {
         Assertions.assertDoesNotThrow(() -> aCategory.validate(new ThrowsValidationHandler()));
 
         final var updatedAt = aCategory.getUpdatedAt();
-        System.out.println(" 1 - UpdatedAt: %s".formatted(updatedAt));
 
         Assertions.assertTrue(aCategory.isActive());
         Assertions.assertNull(aCategory.getDeletedAt());

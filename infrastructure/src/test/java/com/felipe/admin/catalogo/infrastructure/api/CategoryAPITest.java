@@ -16,7 +16,7 @@ import com.felipe.admin.catalogo.domain.category.Category;
 import com.felipe.admin.catalogo.domain.category.CategoryID;
 import com.felipe.admin.catalogo.domain.exceptions.DomainException;
 import com.felipe.admin.catalogo.domain.exceptions.NotFoundException;
-import com.felipe.admin.catalogo.domain.exceptions.NotificationPattern;
+import com.felipe.admin.catalogo.domain.validation.handler.Notification;
 import com.felipe.admin.catalogo.domain.pagination.Pagination;
 import com.felipe.admin.catalogo.domain.validation.Error;
 import com.felipe.admin.catalogo.ControllerTest;
@@ -112,7 +112,7 @@ public class CategoryAPITest {
         final var anInput = new CreateCategoryRequest(expectedName, expectedDescription, expectedIsAtive);
 
         when(createCategoryUseCase.execute(any()))
-                .thenReturn(Left(NotificationPattern.create(new Error(expectedMessage))));
+                .thenReturn(Left(Notification.create(new Error(expectedMessage))));
 
         final var request = MockMvcRequestBuilders.post("/categories")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -284,7 +284,7 @@ public class CategoryAPITest {
 
 
         when(updateCategoryUseCase.execute(any()))
-                .thenReturn(API.Left(NotificationPattern.create(new Error(expectedMessage))));
+                .thenReturn(API.Left(Notification.create(new Error(expectedMessage))));
 
         var input = new UpdateCategoryRequest(expectedName, expectedDescription, expectedIsActive);
 //        when

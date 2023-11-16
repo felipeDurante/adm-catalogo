@@ -21,7 +21,7 @@ public interface ValidationHandler {
         return (getErros() != null && !getErros().isEmpty()) ? getErros().get(0) : null;
     }
 
-    interface Validation<T> {
+    interface Validation<T> { //retorna valor generico, permitindo a generealizacao
         T validate();
     }
 

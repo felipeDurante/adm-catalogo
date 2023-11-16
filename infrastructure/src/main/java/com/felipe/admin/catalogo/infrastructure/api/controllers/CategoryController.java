@@ -9,7 +9,7 @@ import com.felipe.admin.catalogo.application.category.find.list.ListCategoriesUs
 import com.felipe.admin.catalogo.application.category.update.UpdateCategoryCommand;
 import com.felipe.admin.catalogo.application.category.update.UpdateCategoryOutPut;
 import com.felipe.admin.catalogo.application.category.update.UpdateCategoryUseCase;
-import com.felipe.admin.catalogo.domain.exceptions.NotificationPattern;
+import com.felipe.admin.catalogo.domain.validation.handler.Notification;
 import com.felipe.admin.catalogo.domain.pagination.Pagination;
 import com.felipe.admin.catalogo.domain.pagination.SearchQuery;
 import com.felipe.admin.catalogo.infrastructure.api.CategoryAPI;
@@ -55,12 +55,12 @@ public class CategoryController implements CategoryAPI {
                 input.description(),
                 input.active() != null ? input.active() : true);
 
-        final Function<NotificationPattern, ResponseEntity<?>> onError = notification ->
+        final Function<Notification, ResponseEntity<?>> onError = notification ->
                 ResponseEntity.unprocessableEntity().body(notification);
 
-//        final Function<NotificationPattern, ResponseEntity<?>> teste = ResponseEntity.unprocessableEntity()::body;
+//        final Function<Notification, ResponseEntity<?>> teste = ResponseEntity.unprocessableEntity()::body;
 
-//        final Function<NotificationPattern, ResponseEntity<?>> onError =
+//        final Function<Notification, ResponseEntity<?>> onError =
 //                notification ->
 //                ResponseEntity.unprocessableEntity().body(notification);
 
@@ -92,7 +92,7 @@ public class CategoryController implements CategoryAPI {
 
         //existem 2 tipos de respostas, com erro ou sem
         //quando é executado é retornado ou um ou outro (Padrao Either)
-        final Function<NotificationPattern, ResponseEntity<?>> onError = notification ->
+        final Function<Notification, ResponseEntity<?>> onError = notification ->
                 ResponseEntity.unprocessableEntity().body(notification);
 
         final Function<UpdateCategoryOutPut, ResponseEntity<?>> onSuccess = ResponseEntity::ok;
