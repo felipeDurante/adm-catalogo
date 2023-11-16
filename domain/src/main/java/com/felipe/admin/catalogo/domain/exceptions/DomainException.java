@@ -8,7 +8,7 @@ import java.util.List;
 public class DomainException extends NoStackTraceException {
 
     /* Classe responsavel por lancar a excecao pegando apenas a primeira mensagem de erro  */
-    private final List<Error> erros;
+    protected final List<Error> erros;
 
     DomainException(final String aMessage, final List<Error> anErrors) {
         super(aMessage);

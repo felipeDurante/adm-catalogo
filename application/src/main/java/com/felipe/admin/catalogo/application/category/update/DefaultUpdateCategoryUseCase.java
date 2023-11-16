@@ -4,7 +4,7 @@ import com.felipe.admin.catalogo.domain.category.Category;
 import com.felipe.admin.catalogo.domain.category.CategoryGateway;
 import com.felipe.admin.catalogo.domain.category.CategoryID;
 import com.felipe.admin.catalogo.domain.exceptions.DomainException;
-import com.felipe.admin.catalogo.domain.exceptions.NotificationPattern;
+import com.felipe.admin.catalogo.domain.validation.handler.Notification;
 import com.felipe.admin.catalogo.domain.validation.Error;
 import io.vavr.API;
 import io.vavr.control.Either;
@@ -20,7 +20,7 @@ public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase {
     }
 
     @Override
-    public Either<NotificationPattern, UpdateCategoryOutPut> execute(UpdateCategoryCommand aCommand) {
+    public Either<Notification, UpdateCategoryOutPut> execute(UpdateCategoryCommand aCommand) {
         final var andId = CategoryID.from(aCommand.id());
         final var aName = aCommand.name();
         final var aDescription = aCommand.description();
@@ -29,7 +29,7 @@ public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase {
         final var aCategory = this.categoryGateway.findById(andId).orElseThrow(() ->
                 DomainException.with(new Error("Category with ID %s was not found".formatted(andId.getValue()))));
 
-        final var notification = NotificationPattern.create();
+        final var notification = Notification.create();
 
 //        final var aCategory = Category.update(aName, aDescription, isActive);
         aCategory.
@@ -40,10 +40,10 @@ public class DefaultUpdateCategoryUseCase extends UpdateCategoryUseCase {
         return notification.hasError() ? API.Left(notification) : update(aCategory); // s
     }
 
-    private Either<NotificationPattern, UpdateCategoryOutPut> update(Category aCategory) {
+    private Either<Notification, UpdateCategoryOutPut> update(Category aCategory) {
         return API.Try(() -> this.categoryGateway.update(aCategory))
                 .toEither()
-                .bimap(NotificationPattern::create, UpdateCategoryOutPut::from);//create aqui é da notificacao
+                .bimap(Notification::create, UpdateCategoryOutPut::from);//create aqui é da notificacao
     }
 }
 

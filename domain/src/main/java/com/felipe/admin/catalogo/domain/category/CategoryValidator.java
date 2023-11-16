@@ -18,11 +18,11 @@ public class CategoryValidator extends Validator {
     @Override
     public void validate() {
 
-        checkNameConstrainsts();
+        checkNameConstraints();
 
     }
 
-    private void checkNameConstrainsts() {
+    private void checkNameConstraints() {
 
         final var name = this.category.getName();
         if (this.category.getName() == null) {
