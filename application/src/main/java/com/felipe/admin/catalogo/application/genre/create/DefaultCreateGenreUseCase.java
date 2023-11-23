@@ -19,7 +19,7 @@ public class DefaultCreateGenreUseCase extends CreateGenreUseCase {
     private final GenreGateway genreGateway;
     private final CategoryGateway categoryGateway;
 
-    public DefaultCreateGenreUseCase(final GenreGateway genreGateway, CategoryGateway categoryGateway) {
+    public DefaultCreateGenreUseCase(final GenreGateway genreGateway,final CategoryGateway categoryGateway) {
         this.genreGateway = Objects.requireNonNull(genreGateway);
         this.categoryGateway = Objects.requireNonNull(categoryGateway);
     }
@@ -29,7 +29,7 @@ public class DefaultCreateGenreUseCase extends CreateGenreUseCase {
 
         final var aName = aCommand.name();
         final var isActive = aCommand.isActive();
-        final var categories = toCategoryId(aCommand.categoriesIds());
+        final var categories = toCategoryId(aCommand.categories());
 
         final var notification = Notification.create();
 

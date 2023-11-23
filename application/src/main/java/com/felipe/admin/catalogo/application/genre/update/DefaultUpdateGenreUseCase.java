@@ -28,8 +28,8 @@ public class DefaultUpdateGenreUseCase extends UpdateGenreUseCase {
     public DefaultUpdateGenreUseCase(
             final CategoryGateway categoryGateway,
             final GenreGateway genreGateway) {
-        this.categoryGateway = Objects.requireNonNull(categoryGateway);
         this.genreGateway = Objects.requireNonNull(genreGateway);
+        this.categoryGateway = Objects.requireNonNull(categoryGateway);
     }
 
     @Override

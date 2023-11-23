@@ -3,6 +3,7 @@ package com.felipe.admin.catalogo.domain.genre;
 import com.felipe.admin.catalogo.domain.pagination.Pagination;
 import com.felipe.admin.catalogo.domain.pagination.SearchQuery;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -50,4 +51,6 @@ public interface GenreGateway {
      * @return Uma instância de Pagination contendo a lista paginada de gêneros.
      */
     Pagination<Genre> findAll(SearchQuery aQuery);
+
+    List<GenreID> existsByIds(Iterable<GenreID> ids);
 }

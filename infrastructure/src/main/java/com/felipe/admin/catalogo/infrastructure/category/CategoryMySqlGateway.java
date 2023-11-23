@@ -11,14 +11,14 @@ import com.felipe.admin.catalogo.infrastructure.utils.SpecificationUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 
-@Service
+@Component
 public class CategoryMySqlGateway implements CategoryGateway {
 
     private final CategoryRepository categoryRepository;

@@ -50,6 +50,7 @@ public class CategoryAPITest {
 
     @MockBean
     private CreateCategoryUseCase createCategoryUseCase;
+
     @MockBean
     private GetCategoryUseCase getCategoryUseCase;
 
