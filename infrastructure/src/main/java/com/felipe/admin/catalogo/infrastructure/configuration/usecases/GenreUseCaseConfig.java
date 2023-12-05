@@ -29,6 +29,11 @@ public class GenreUseCaseConfig {
     }
 
     @Bean
+    public DeleteGenreUseCase deleteGenreUseCase() {
+        return new DefaultDeleteGenreUseCase(genreGateway);
+    }
+
+    @Bean
     public CreateGenreUseCase createGenreUseCase() {
         return new DefaultCreateGenreUseCase(genreGateway, categoryGateway);
     }
@@ -48,8 +53,5 @@ public class GenreUseCaseConfig {
         return new DefaultListGenreByIdUseCase(genreGateway);
     }
 
-    @Bean
-    public DeleteGenreUseCase deleteGenreUseCase() {
-        return new DefaultDeleteGenreUseCase(genreGateway);
-    }
+
 }

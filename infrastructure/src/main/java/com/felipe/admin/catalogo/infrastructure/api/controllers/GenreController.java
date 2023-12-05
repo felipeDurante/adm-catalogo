@@ -1,7 +1,6 @@
 package com.felipe.admin.catalogo.infrastructure.api.controllers;
 
 
-import com.felipe.admin.catalogo.application.category.update.UpdateCategoryCommand;
 import com.felipe.admin.catalogo.application.genre.create.CreateGenreCommand;
 import com.felipe.admin.catalogo.application.genre.create.CreateGenreUseCase;
 import com.felipe.admin.catalogo.application.genre.delete.DeleteGenreUseCase;
@@ -15,6 +14,7 @@ import com.felipe.admin.catalogo.infrastructure.api.GenreAPI;
 import com.felipe.admin.catalogo.infrastructure.category.presenters.GenreApiPresenter;
 import com.felipe.admin.catalogo.infrastructure.genre.models.CreateGenreRequest;
 import com.felipe.admin.catalogo.infrastructure.genre.models.GenreApiResponse;
+import com.felipe.admin.catalogo.infrastructure.genre.models.GenreListResponse;
 import com.felipe.admin.catalogo.infrastructure.genre.models.UpdateGenreRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -48,6 +48,7 @@ public class GenreController implements GenreAPI {
         this.deleteGenreUseCase = Objects.requireNonNull(deleteGenreUseCase);
         this.getGenreByIdUseCase = Objects.requireNonNull(getGenreByIdUseCase);
         this.listGenreUseCase = Objects.requireNonNull(listGenreUseCase);
+//        this.listGenreUseCase = Objects.requireNonNull(listGenreUseCase);
     }
 
 
@@ -67,14 +68,14 @@ public class GenreController implements GenreAPI {
     }
 
     @Override
-    public GenreApiResponse getGenre(final String id) {
+    public GenreApiResponse getById(final String id) {
 
         return GenreApiPresenter.present(this.getGenreByIdUseCase.execute(id));
     }
 
 
     @Override
-    public ResponseEntity<?> updateGenreById(final String id, final UpdateGenreRequest input) {
+    public ResponseEntity<?> updateById(final String id, final UpdateGenreRequest input) {
         var aCommand = UpdateGenreCommand.with(
                 id,
                 input.name(),
@@ -87,12 +88,13 @@ public class GenreController implements GenreAPI {
     }
 
     @Override
-    public void deleteGenreById(final String id) {
+    public void deleteById(final String id) {
         this.deleteGenreUseCase.execute(id);
     }
 
     @Override
-    public Pagination<?> listGenres(final String search, final int page, final int perPage, final String sort, final String direction) {
+    public Pagination<GenreListResponse> list(final String search, final int page, final int perPage, final String sort, final String direction) {
+//        return null;
         return this.listGenreUseCase.execute(new SearchQuery(page, perPage, search, sort, direction))
                 .map(GenreApiPresenter::present);
     }
